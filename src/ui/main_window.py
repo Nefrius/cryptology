@@ -31,8 +31,78 @@ class MainWindow:
         """
         self.root = root
         self.root.title("Şifreleme Sanatı")
-        self.root.geometry("900x600")
-        self.root.minsize(800, 500)
+        self.root.geometry("1000x700")
+        self.root.minsize(900, 600)
+        
+        # Tema ve stil ayarları
+        self.style = ttk.Style()
+        self.style.theme_use('clam')  # Modern görünüm için clam teması
+        
+        # Özel renk paleti
+        self.style.configure('.',
+            background='#f0f0f0',
+            foreground='#333333',
+            font=('Segoe UI', 10)
+        )
+        
+        # Frame stilleri
+        self.style.configure('TFrame',
+            background='#ffffff'
+        )
+        
+        # Label stilleri
+        self.style.configure('TLabel',
+            background='#ffffff',
+            font=('Segoe UI', 10)
+        )
+        
+        # Button stilleri
+        self.style.configure('TButton',
+            padding=6,
+            relief='flat',
+            background='#007bff',
+            foreground='white'
+        )
+        
+        self.style.map('TButton',
+            background=[('active', '#0056b3'), ('disabled', '#cccccc')],
+            foreground=[('disabled', '#666666')]
+        )
+        
+        # Notebook stilleri
+        self.style.configure('TNotebook',
+            background='#ffffff',
+            padding=5
+        )
+        
+        self.style.configure('TNotebook.Tab',
+            padding=[12, 4],
+            font=('Segoe UI', 10)
+        )
+        
+        self.style.map('TNotebook.Tab',
+            background=[('selected', '#007bff'), ('active', '#e6f3ff')],
+            foreground=[('selected', '#ffffff'), ('active', '#007bff')]
+        )
+        
+        # LabelFrame stilleri
+        self.style.configure('TLabelframe',
+            background='#ffffff',
+            relief='solid',
+            borderwidth=1
+        )
+        
+        self.style.configure('TLabelframe.Label',
+            background='#ffffff',
+            font=('Segoe UI', 10, 'bold')
+        )
+        
+        # Entry stilleri
+        self.style.configure('TEntry',
+            fieldbackground='#ffffff',
+            borderwidth=1,
+            relief='solid'
+        )
         
         # Algoritma nesnelerini oluştur
         self.caesar_cipher = CaesarCipher()
@@ -44,6 +114,9 @@ class MainWindow:
         
         # Varsayılan olarak Caesar Cipher sekmesini göster
         self.notebook.select(0)
+        
+        # Pencere arkaplan rengi
+        self.root.configure(bg='#f0f0f0')
     
     def _create_menu(self):
         """

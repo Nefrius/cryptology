@@ -17,6 +17,14 @@ class AboutFrame(ttk.Frame):
         """
         super().__init__(parent)
         
+        # Stil ayarları
+        self.style = ttk.Style()
+        
+        # ScrolledText stilleri
+        self.text_font = ('Segoe UI', 10)
+        self.text_bg = '#ffffff'
+        self.text_fg = '#333333'
+        
         self._create_widgets()
         self._create_layout()
     
@@ -24,79 +32,97 @@ class AboutFrame(ttk.Frame):
         """
         Arayüz bileşenlerini oluşturur.
         """
+        # Ana çerçeve
+        self.main_frame = ttk.Frame(self)
+        
         # Başlık
         self.title_label = ttk.Label(
-            self, 
-            text="Şifreleme Sanatı", 
-            font=("Arial", 20, "bold")
+            self.main_frame,
+            text="Şifreleme Sanatı",
+            font=('Segoe UI', 24, 'bold'),
+            foreground='#007bff'
         )
         
-        # Logo (placeholder)
-        self.logo_frame = ttk.Frame(self, width=200, height=200)
-        self.logo_label = ttk.Label(
-            self.logo_frame,
-            text="[Logo]",
-            font=("Arial", 40),
-            anchor="center"
+        # Alt başlık
+        self.subtitle_label = ttk.Label(
+            self.main_frame,
+            text="Modern Şifreleme Teknikleri",
+            font=('Segoe UI', 14),
+            foreground='#6c757d'
         )
         
         # Versiyon
         self.version_label = ttk.Label(
-            self, 
-            text="Versiyon 1.0", 
-            font=("Arial", 12)
+            self.main_frame,
+            text="Versiyon 1.0",
+            font=('Segoe UI', 12),
+            foreground='#28a745'
         )
         
         # Proje bilgisi
-        self.info_frame = ttk.LabelFrame(self, text="Proje Hakkında")
-        self.info_text = scrolledtext.ScrolledText(
-            self.info_frame, 
-            height=10, 
-            width=60, 
-            wrap=tk.WORD
+        self.info_frame = ttk.LabelFrame(
+            self.main_frame,
+            text="Proje Hakkında",
+            padding=15
         )
+        
+        self.info_text = scrolledtext.ScrolledText(
+            self.info_frame,
+            height=12,
+            width=60,
+            wrap=tk.WORD,
+            font=self.text_font,
+            bg=self.text_bg,
+            fg=self.text_fg
+        )
+        
         self.info_text.insert(tk.END, """
-        Şifreleme Sanatı, iki farklı şifreleme algoritması olan Caesar Cipher ve RSA algoritmalarını inceleyen, 
-        bu algoritmaların nasıl çalıştığını anlamak ve günlük hayattaki önemini vurgulayan bir uygulamadır.
-        
-        Bu uygulama, şifreleme algoritmalarının pratikte nasıl işlediğini deneyimletmeyi amaçlamaktadır.
-        
-        Proje Amacı:
-        İki farklı şifreleme algoritması olan Caesar Cipher ve RSA algoritmalarını incelemek, bu algoritmaların 
-        nasıl çalıştığını anlamak ve günlük hayattaki önemini vurgulayan bir programla bu algoritmaların pratikte 
-        nasıl işlediğini ziyaretçilere deneyimletmek.
-        
-        Beklenen Sonuç:
-        Proje sonunda şifreleme yöntemlerinin nasıl çalıştığı daha iyi anlaşılacak. Python ile yazılan program 
-        sayesinde, bu yöntemler daha somut bir şekilde görülecek. Sergi sırasında ziyaretçiler, kendi mesajlarını 
-        şifreleyip çözerek hem öğrenecek hem de eğlenecek. Bu sayede siber güvenlik konusunda bilinç artışı olunacak. 
-        Bu şekilde şifrelerin daha güçlü ve güvenli bir şekilde değiştirilmesi gerektiği anlaşılacaktır.
+Şifreleme Sanatı, modern şifreleme tekniklerini öğrenmek ve uygulamak için tasarlanmış bir eğitim aracıdır.
+
+Desteklenen Şifreleme Algoritmaları:
+
+1. Caesar Cipher (Sezar Şifrelemesi)
+   - Klasik yer değiştirme şifrelemesi
+   - Türkçe ve İngilizce alfabe desteği
+   - Frekans analizi görselleştirmesi
+   - Kaba kuvvet çözümleme
+
+2. RSA (Rivest-Shamir-Adleman)
+   - Asimetrik şifreleme
+   - 1024-4096 bit anahtar desteği
+   - Güvenli anahtar üretimi
+   - Adım adım şifreleme/çözme gösterimi
+
+Bu uygulama, kriptografi öğrenmek isteyenler için pratik bir araç olarak tasarlanmıştır. Kullanıcı dostu arayüzü ve detaylı açıklamalarıyla, şifreleme kavramlarını anlamayı kolaylaştırır.
+
+Güvenlik Notu: Bu uygulama eğitim amaçlıdır. Hassas verilerin şifrelenmesi için profesyonel güvenlik çözümleri kullanılmalıdır.
         """)
         self.info_text.config(state=tk.DISABLED)
         
         # Telif hakkı
         self.copyright_label = ttk.Label(
-            self, 
-            text="© 2025 Şifreleme Sanatı Projesi", 
-            font=("Arial", 10)
+            self.main_frame,
+            text="© 2024 Tüm hakları saklıdır.",
+            font=('Segoe UI', 9),
+            foreground='#6c757d'
         )
     
     def _create_layout(self):
         """
         Arayüz bileşenlerini düzenler.
         """
-        # Başlık
-        self.title_label.pack(pady=(20, 5))
+        # Ana çerçeve
+        self.main_frame.pack(expand=True, fill="both", padx=40, pady=20)
         
-        # Logo
-        self.logo_frame.pack(pady=10)
-        self.logo_label.place(relx=0.5, rely=0.5, anchor="center")
+        # Başlık ve alt başlık
+        self.title_label.pack(pady=(20, 5))
+        self.subtitle_label.pack(pady=(0, 20))
         
         # Versiyon
-        self.version_label.pack(pady=(0, 20))
+        self.version_label.pack(pady=(0, 30))
         
         # Proje bilgisi
-        self.info_frame.pack(fill="both", expand=True, padx=20, pady=10)
+        self.info_frame.pack(fill="both", expand=True)
         self.info_text.pack(fill="both", expand=True, padx=10, pady=10)
         
         # Telif hakkı
